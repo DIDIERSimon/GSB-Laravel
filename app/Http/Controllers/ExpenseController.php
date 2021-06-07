@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FraisForfait;
 use App\Models\LigneFraisForfaits;
 use App\Models\LigneFraisHorsForfait;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -28,11 +29,14 @@ class ExpenseController extends Controller
         //insertion de la ligne de frais "specifique" dans la bdd
         //forfait
 
+        $getMontantUFrais = FraisForfait::find($request->tag);
+
         $ajout = new LigneFraisForfaits();
         $ajout->visiteur_id = $request->visiteur;
         $ajout->mois = $request->mois;
         $ajout->FraisForfait_id = $request->tag;
         $ajout->quantite = $request->amount;
+        $ajout->montant_total = $request->amount * $getMontantUFrais->montant;
         $ajout->save();
 
         /*DB::table('ligne_frais_forfaits')
@@ -73,12 +77,14 @@ class ExpenseController extends Controller
         $user = Auth::user()->visiteur_id;
 
         $Expenses = LigneFraisForfaits::where('visiteur_id', $user)->get();
-
+        $check = LigneFraisForfaits::addSelect('montant_total')->where('visiteur_id', $user)->get();
+        $total = $check->sum('montant_total');
+        
         /*$Expenses = DB::table('ligne_frais_forfaits')
             ->select('mois', 'FraisForfait_id', 'quantite')
             ->where('visiteur_id', $User)
             ->get();*/
-        return view('vueListeFicheFrais',compact('Expenses'));
+        return view('vueListeFicheFrais',compact('Expenses', 'total'));
     }
 
     //hors forfait

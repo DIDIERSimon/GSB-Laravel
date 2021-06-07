@@ -19,6 +19,7 @@ class CreateLigneFraisForfaitTable extends Migration
             $table->string('mois');
             $table->unsignedBigInteger('FraisForfait_id');
             $table->integer('quantite')->default(null);
+            $table->double('montant_total')->default(0);
             $table->foreign('visiteur_id')->references('id')->on('visiteurs');
             $table->foreign('FraisForfait_id')->references('id')->on('frais_forfaits');
             $table->timestamps();

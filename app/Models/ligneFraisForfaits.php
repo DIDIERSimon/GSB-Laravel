@@ -16,6 +16,7 @@ class LigneFraisForfaits extends Model
         'visiteur_id',
         'mois',
         'FraisForfait_id',
-        'quantité'
+        'quantité',
+        'montant_total',
     ];
 }

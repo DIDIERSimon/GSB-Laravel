@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'nom' => 'Admin',
             'prenom' => 'Admin',
             'adresse' => 'Admin',
+            'telephone' => '06 88 73 79 70',
             'cp' => 'Admin',
             'ville' => 'Admin',
             'dateEmbauche' => '2021-01-31',

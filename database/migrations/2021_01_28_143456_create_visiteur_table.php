@@ -18,6 +18,7 @@ class CreateVisiteurTable extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('adresse');
+            $table->string('telephone');
             $table->string('cp');
             $table->string('ville');
             $table->date('dateEmbauche');
